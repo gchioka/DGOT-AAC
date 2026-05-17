@@ -65,7 +65,7 @@ $obRouter->get('/account/manage', [
 
 $obRouter->get('/account/registration', [
     'middlewares' => [
-        'required-login'
+        'required-logout'
     ],
     function($request){
         return new Response(200, Account\Registration::getRegistration($request));
@@ -73,7 +73,7 @@ $obRouter->get('/account/registration', [
 ]);
 $obRouter->post('/account/registration', [
     'middlewares' => [
-        'required-login'
+        'required-logout'
     ],
     function($request){
         return new Response(200, Account\Registration::insertRegister($request));

@@ -379,6 +379,16 @@ ServerList.push(new Array('{{ world.name }}', '{{ world.location_initial }}', '{
 																									</span>
 																								</td>
 																							</tr>
+								<tr>
+									<td>
+										<span class="OptionContainer">
+											<label for="vocation_monk">
+												<span class="OptionContainer"><input id="vocation_monk" type="radio" name="vocation" value="9"><label for="vocation_monk">Monk</label>
+												</span>
+											</label>
+										</span>
+									</td>
+								</tr>
 																						</tbody>
 																					</table>
 																				</td>
@@ -394,128 +404,16 @@ ServerList.push(new Array('{{ world.name }}', '{{ world.location_initial }}', '{
 																<div class="TableContentContainer">
 																	<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																		<tbody>
-																			<tr id="filterbox_location">
-																				<td class="LabelV150" colspan="4"><span>World Location:</span></td>
-																			</tr>
 																			<tr>
-																				<td colspan="4">
-																					<table width="100%">
-																						<tbody>
-																							<tr>
-																								<td width="25%" valign="top">
-																									<script>CreateFilterOption('server_location', 'all', 'all')</script>
-																								</td>
-																								<td width="25%" style="width: 25%" valign="top">
-																									<script>CreateFilterOption('server_location', 'EUR', 'Europe');</script>
-																								</td>
-																								<td width="25%" valign="top">
-																									<script>CreateFilterOption('server_location', 'USA', 'North&#160;America');</script>
-																								</td>
-																								<td width="25%" valign="top">
-																									<script>CreateFilterOption('server_location', 'BRA', 'South&#160;America');</script>
-																								</td>
-																							</tr>
-																						</tbody>
-																					</table>
-																				</td>
-																			</tr>
-																			<tr id="filterbox_pvp">
-																				<td class="LabelV150" colspan="4">
-																					<span>World Type:</span>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td colspan="4">
-																					<div>
-																						<table width="100%">
-																							<tbody>
-																								<tr>
-																									<td width="33%" align="center" valign="top">
-																										<b><script>CreateFilterOption('server_pvp_type', 'optional', 'Optional PvP')</script></b>
-																										Only if both sides agree, characters can be fought<br /><br />
-																									</td>
-																									<td width="33%" align="center" valign="top">
-																										<b><script>CreateFilterOption('server_pvp_type', 'open', 'Open PvP')</script></b>
-																										Killing other characters is possible, but restricted<br /><br />
-																									</td>
-																									<td width="33%" align="center" valign="top">
-																										<b><script>CreateFilterOption('server_pvp_type', 'hardcore', 'Hardcore PvP')</script></b>
-																										Killing other characters is not restricted at all<br /><br />
-																									</td>
-																								</tr>
-																								<tr>
-																									<td width="33%" align="center" valign="top" style="border:0px;"></td>
-																									<td width="33%" align="center" valign="top">
-																										<b><script>CreateFilterOption('server_pvp_type', 'retro', 'Retro Open PvP')</script></b>
-																										Killing other characters is possible, but restricted (old PvP rules)<br /><br />
-																									</td>
-																									<td width="33%" align="center" valign="top">
-																										<b><script>CreateFilterOption('server_pvp_type', 'retrohardcore', 'Retro Hardcore PvP')</script></b>
-																										Killing other characters is not restricted at all (old PvP rules)<br /><br />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td class="LabelV150">
-																					<span>World Name:</span>
-																				</td>
-																				<td>
-																					<div id="js_world_box" style="display: none">
-																						<table width="100%">
-																							<tbody>
-																								<tr id="world_list_tr" style="text-align:left;">
-																									<td style="border-style: none" align="center">
-																										{% for world in worlds %}
-																										<div style="width: 15em; position: relative; text-align: left;">
-																											<input type="radio" name="world" id="server_{{ world.name }}" value="{{ world.id }}">
-																											<label for="server_{{ world.name }}">{{ world.name }}</label>
-																										</div>
-																										{% endfor %}
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																						<span onclick="ToggleVisibility('js_world_box', 'suggested_world_box'); UpdateServerList(); ">
-																							<small>[<a style="cursor:pointer;">suggest game world</a>]</small>
-																						</span>
-																					</div>
-																					<div id="suggested_world_box">Suggested world:
-																						<span id="suggested_world_div"></span><br><span onclick="ToggleVisibility('suggested_world_box', 'js_world_box'); ">
-																							<small>[<a style="cursor:pointer;">change game world</a>
-																							</small>
-																						</span>
-																						<small>]</small>
-																					</div>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td colspan="2">
-																					<table id="js_world_box" width="100%">
-																						<tbody>
-																							<tr id="world_list_tr"></tr>
-																						</tbody>
-																					</table>
-																					<table id="plain_world_box" width="100%" style="display: none;">
-																						<tbody>
-																							<tr>
-																								<td>
-																									{% for world in worlds %}
-																									<label for="server_static_{{ world.name }}">
-																										<input id="server_static_{{ world.name }}" type="radio" name="world" value="{{ world.id }}">{{ world.name }} (PVP Type: {{ world.pvp_type_initial }}, Location: {{ world.location }})
-																									</label><br>
-																									{% endfor %}
-																								</td>
-																							</tr>
-																						</tbody>
-																					</table>
-																				</td>
-																			</tr>
-																			<script type="text/javascript">PreselectWorld = ""; InitializeCharacterCreator(0, "all", '{{ preselect_world_pvptype }}')</script>
-																		</tbody>
+								<td class="LabelV150"><span>World:</span></td>
+								<td>
+									{% for world in worlds %}
+									<input type="hidden" name="world" value="{{ world.id }}">
+									<span>{{ world.name }}</span>
+									{% endfor %}
+								</td>
+							</tr>
+							</tbody>
 																	</table>
 																</div>
 															</td>
@@ -532,7 +430,7 @@ ServerList.push(new Array('{{ world.name }}', '{{ world.location_initial }}', '{
 																			</tr>
 																			<tr>
 																				<td>
-																					<label><input type="checkbox" name="agreeagreements" value="true" onclick="if(this.checked == true) {  document.getElementById('agreeagreements_errormessage').innerHTML = '';} else {  document.getElementById('agreeagreements_errormessage').innerHTML = 'You have to agree to the Tibia Service Agreement, the Tibia Rules and the Tibia Privacy Policy in order to create an account!';}"> I agree to the Tibia Service Agreement, the Tibia Rules and the Tibia Privacy Policy.</label>
+																					<label><input type="checkbox" name="agreeagreements" value="true" onclick="if(this.checked == true) {  document.getElementById('agreeagreements_errormessage').innerHTML = '';} else {  document.getElementById('agreeagreements_errormessage').innerHTML = 'You have to agree to the Terms of Service in order to create an account!';}"> I agree to the Terms of Service.</label>
 																				</td>
 																			</tr>
 																			<tr>

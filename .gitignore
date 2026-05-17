@@ -1,8 +1,5 @@
-.vs
-*items
-*outfits
-
-Thumbs.db
-.DS_Store
-.idea/
-/store
+resources/view/cache/
+vendor/
+.env
+*.log
+storage/logs/

@@ -3,7 +3,7 @@
         'name' => 'canary/mvc-aac',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b6dff48a75f85be0cd1b1fd6fe15afa97db249e5',
+        'reference' => 'd9333dcf33d3f55cee476e9ee8ebfe3f28113c19',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'canary/mvc-aac' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b6dff48a75f85be0cd1b1fd6fe15afa97db249e5',
+            'reference' => 'd9333dcf33d3f55cee476e9ee8ebfe3f28113c19',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
