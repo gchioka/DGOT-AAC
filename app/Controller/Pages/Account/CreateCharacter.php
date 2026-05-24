@@ -116,6 +116,13 @@ class CreateCharacter extends Base{
             $character_tutorial = 0;
         }
 
+        // Town selection: 9=Thais, 11=Ankrahmun
+        $allowed_towns = [9 => 'Thais', 11 => 'Ankrahmun'];
+        $character_town = (int)filter_var($postVars['town'] ?? 9, FILTER_SANITIZE_NUMBER_INT);
+        if (!array_key_exists($character_town, $allowed_towns)) {
+            $character_town = 9; // default Thais
+        }
+
         if(self::getActiveVocation() == 0){
             $character_vocation = 0;
         }
@@ -142,7 +149,7 @@ class CreateCharacter extends Base{
             'manamax' => $playerSample->manamax,
             'manaspent' => $playerSample->manaspent,
             'soul' => $playerSample->soul,
-            'town_id' => $playerSample->town_id,
+            'town_id' => $character_town,
             'world' => $character_world,
             'posx' => $playerSample->posx,
             'posy' => $playerSample->posy,
