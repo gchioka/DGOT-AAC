@@ -51,6 +51,8 @@ class Create extends Base{
         $character_vocation = $postVars['vocation'] ?? '';
         $character_world = $postVars['world'] ?? '';
         $account_agreeagreements = $postVars['agreeagreements'] ?? '';
+        $character_town_raw = (int)filter_var($postVars['town'] ?? 8, FILTER_SANITIZE_NUMBER_INT);
+        $character_town = in_array($character_town_raw, [8, 13]) ? $character_town_raw : 8; // 8=Thais 13=Darashia
 
         if(!filter_var($account_name, FILTER_SANITIZE_SPECIAL_CHARS)){
             return self::getCreateAccount($request, 'This email address has an invalid format. Please enter a correct email address!');
@@ -163,7 +165,7 @@ class Create extends Base{
             'manamax' => $playerSample->manamax,
             'manaspent' => $playerSample->manaspent,
             'soul' => $playerSample->soul,
-            'town_id' => $playerSample->town_id,
+            'town_id' => $character_town,
             'world' => $selectWorlds->id,
             'posx' => $playerSample->posx,
             'posy' => $playerSample->posy,

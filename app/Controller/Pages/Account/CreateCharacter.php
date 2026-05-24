@@ -116,11 +116,11 @@ class CreateCharacter extends Base{
             $character_tutorial = 0;
         }
 
-        // Town selection: 9=Thais, 11=Ankrahmun
-        $allowed_towns = [9 => 'Thais', 11 => 'Ankrahmun'];
-        $character_town = (int)filter_var($postVars['town'] ?? 9, FILTER_SANITIZE_NUMBER_INT);
+        // Town selection: 8=Thais, 13=Darashia
+        $allowed_towns = [8 => "Thais", 13 => "Darashia"];
+        $character_town = (int)filter_var($postVars['town'] ?? 8, FILTER_SANITIZE_NUMBER_INT);
         if (!array_key_exists($character_town, $allowed_towns)) {
-            $character_town = 9; // default Thais
+            $character_town = 8; // default Thais
         }
 
         if(self::getActiveVocation() == 0){
