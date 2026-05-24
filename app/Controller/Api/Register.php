@@ -102,6 +102,8 @@ class Register extends Api
         $sex       = (int)($postVars['sex']      ?? -1);
         $vocation  = $postVars['vocation']       ?? '';
         $worldRaw  = $postVars['world']          ?? '';
+        $fullName  = trim($postVars['full_name']  ?? '');
+        $birthdateStr = trim($postVars['birthdate'] ?? '');
 
         // 3. Validacoes
         if (empty($accName)) {
@@ -159,6 +161,22 @@ class Register extends Api
             $filterVocation = 0;
         }
 
+        // 5b. Validacao nome e data de nascimento
+        if (empty($fullName) || strlen($fullName) < 2 || strlen($fullName) > 100) {
+            return self::sendError('Por favor, informe seu nome completo (2 a 100 caracteres).');
+        }
+        $birthdate = \DateTime::createFromFormat('Y-m-d', $birthdateStr);
+        if (!$birthdate || $birthdate->format('Y-m-d') !== $birthdateStr) {
+            return self::sendError('Data de nascimento invalida.');
+        }
+        $age = (new \DateTime())->diff($birthdate)->y;
+        if ($age < 16) {
+            return self::sendError('Voce precisa ter pelo menos 16 anos para se cadastrar.');
+        }
+        if ($age > 120) {
+            return self::sendError('Data de nascimento invalida.');
+        }
+
         // 6. Cria conta
         $hashedPassword = Argon::generateArgonPassword($password1);
 
@@ -171,6 +189,8 @@ class Register extends Api
             'type'        => 1,
             'coins'       => 0,
             'recruiter'   => 0,
+            'full_name'   => $fullName,
+            'birthdate'   => $birthdate->format('Y-m-d'),
         ]);
 
         if (!$accountId) {
