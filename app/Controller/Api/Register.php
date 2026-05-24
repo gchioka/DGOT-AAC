@@ -229,8 +229,8 @@ class Register extends Api
             'manamax'    => $sample->manamax,
             'manaspent'  => $sample->manaspent,
             'soul'       => $sample->soul,
-            // Town selection: 9=Thais 11=Ankrahmun
-            'town_id'    => in_array((int)($postVars['town'] ?? 9), [9,11]) ? (int)($postVars['town'] ?? 9) : 9,
+            // Town selection: 8=Thais 13=Darashia
+            'town_id'    => in_array((int)($postVars['town'] ?? 8), [8,13]) ? (int)($postVars['town'] ?? 8) : 8,
             'world'      => $world->id,
             'posx'       => $sample->posx,
             'posy'       => $sample->posy,
