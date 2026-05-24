@@ -136,7 +136,7 @@ class Account extends Api
             'manaspent'  => $sample->manaspent,
             'soul'       => $sample->soul,
             // Town selection: 9=Thais 11=Ankrahmun
-            'town_id'    => in_array((int)($v['town'] ?? 9), [9,11]) ? (int)($v['town'] ?? 9) : 9,
+            'town_id'    => in_array((int)($v['town'] ?? 8), [8,13]) ? (int)($v['town'] ?? 8) : 8,
             'world'      => $worldObj->id,
             'posx'       => $sample->posx,
             'posy'       => $sample->posy,
