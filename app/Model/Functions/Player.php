@@ -35,6 +35,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
                 '6' => 'Elder Druid',
                 '7' => 'Royal Paladin',
                 '8' => 'Elite Knight',
+                '9' => 'Monk',
             ];
             foreach($vocationList as $key => $value){
                 if($key == $vocationId){

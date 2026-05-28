@@ -3,3 +3,7 @@ vendor/
 .env
 *.log
 storage/logs/
+resources/outfits/
+resources/wiki_sprites/
+data/
+*.bak

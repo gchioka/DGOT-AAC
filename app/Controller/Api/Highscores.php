@@ -105,7 +105,7 @@ class Highscores extends Api
 
         $totalAmount = EntityHighscores::getHighscoresEntity($profession, $category, null, ['COUNT(*) as qtd'])->fetchObject()->qtd;
         $currentPage = $queryParams['page'] ?? 1;
-        $obPagination = new Pagination($totalAmount, $currentPage, 2);
+        $obPagination = new Pagination($totalAmount, $currentPage, 50);
 
         $results = EntityHighscores::getHighscoresEntity($profession, $category, $obPagination->getLimit());
 

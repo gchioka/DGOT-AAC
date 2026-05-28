@@ -122,6 +122,12 @@ class Login extends Api
                     return self::sendError('Email or password is not correct.', 3);
                 }
 
+                // Block god/admin accounts from WEBSITE login only (not game client /login.php)
+                $isWebApi = strpos($_SERVER['REQUEST_URI'] ?? '', '/api/') !== false;
+                if ($isWebApi && (int)$account->type >= 3) {
+                    return self::sendError('Email or password is not correct.', 3);
+                }
+
                 if (!Argon::checkPassword($password, $account->password, $account->id)) {
                     return self::sendError('Email or password is not correct.', 3);
                 }

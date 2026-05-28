@@ -1,34 +1,60 @@
 <?php
-/**
- * Validator class
- *
- * @package   CanaryAAC
- * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
- * @copyright 2022 CanaryAAC
- */
-
 namespace App\Http\Middleware;
 
 use App\Http\Request;
 use Closure;
 use App\Http\Response;
-use Exception;
 
-class Api{
+class Api {
 
-    /**
-     * Method responsible for running the middleware
-     *
-     * @param Request $request
-     * @param Closure $next
-     * @return Response
-     */
-    public function handle($request, $next)
+    /** Origens permitidas para CORS */
+    private static function getAllowedOrigin(): ?string
     {
-        $request->getRouter()->setContentType('application/json');
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+        if (empty($origin)) {
+            return null;
+        }
 
-        // Runs the next level of middleware
-        return $next($request);
+        // Origens explicitamente permitidas
+        $allowed = [
+            'https://dgot.com.br',
+            'https://www.dgot.com.br',
+            'http://localhost:3000',
+            'http://localhost:5173',
+        ];
+
+        if (in_array($origin, $allowed, true)) {
+            return $origin;
+        }
+
+        // Subdomínios do Lovable (preview e produção)
+        if (preg_match('/^https:\/\/[a-z0-9-]+\.lovable\.app$/', $origin)) {
+            return $origin;
+        }
+
+        // Bloqueia qualquer outra origem
+        return null;
     }
 
+    public function handle($request, $next)
+    {
+        $origin = self::getAllowedOrigin();
+
+        if ($origin) {
+            header('Access-Control-Allow-Origin: ' . $origin);
+            header('Vary: Origin');
+        }
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        header('Access-Control-Max-Age: 86400');
+
+        // Responde preflight imediatamente
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(204);
+            exit;
+        }
+
+        $request->getRouter()->setContentType('application/json');
+        return $next($request);
+    }
 }
